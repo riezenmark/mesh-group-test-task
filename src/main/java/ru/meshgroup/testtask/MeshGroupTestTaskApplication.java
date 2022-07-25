@@ -9,5 +9,4 @@ public class MeshGroupTestTaskApplication {
     public static void main(String[] args) {
         SpringApplication.run(MeshGroupTestTaskApplication.class, args);
     }
-
 }
