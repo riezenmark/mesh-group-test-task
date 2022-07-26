@@ -25,7 +25,9 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     @Transactional(readOnly = true)
     public Profile getById(Long id) {
-        return profileRepository.findById(id).orElse(null);
+        return profileRepository
+                .findById(id)
+                .orElse(null);
     }
 
     @Override

@@ -3,3 +3,5 @@ spring:
     url: jdbc:postgresql://192.168.49.1:5444/test-task
     username: admin
     password: admin
+  jpa:
+    show-sql: true

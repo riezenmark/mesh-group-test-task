@@ -25,7 +25,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User getById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository
+                .findById(id)
+                .orElse(null);
     }
 
     @Override

@@ -25,7 +25,9 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     @Transactional(readOnly = true)
     public Phone getById(Long id) {
-        return phoneRepository.findById(id).orElse(null);
+        return phoneRepository
+                .findById(id)
+                .orElse(null);
     }
 
     @Override
