@@ -20,7 +20,7 @@ create table if not exists profiles
         constraint profiles_pk
             primary key,
     cash    numeric(21, 2) not null,
-    user_id bigint
+    user_id bigint not null
         constraint profiles_users_id_fk
             references users
 );

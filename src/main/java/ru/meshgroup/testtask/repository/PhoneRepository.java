@@ -1,4 +1,7 @@
 package ru.meshgroup.testtask.repository;
 
-public interface PhoneRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.meshgroup.testtask.domain.Phone;
+
+public interface PhoneRepository extends JpaRepository<Phone, Long> {
 }
