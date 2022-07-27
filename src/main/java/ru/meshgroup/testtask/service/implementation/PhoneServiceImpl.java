@@ -21,6 +21,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Transactional
     public Optional<Phone> create(Phone newPhone) {
         return Optional.of(newPhone)
+                .filter(phone -> !phoneRepository.existsByValue(newPhone.getValue()))
                 .map(phoneRepository::save);
     }
 
