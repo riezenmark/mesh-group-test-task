@@ -4,14 +4,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.meshgroup.testtask.domain.Phone;
 
-public interface PhoneService {
-    Phone create(Phone user);
+import java.util.Optional;
 
-    Phone getById(Long id);
+public interface PhoneService {
+    Optional<Phone> create(Phone newPhone);
+
+    Optional<Phone> getById(Long id);
 
     Page<Phone> getPage(Pageable pageable);
 
-    Phone update(Long id, Phone phone);
+    Optional<Phone> update(Long id, Phone newPhone);
 
     void deleteById(Long id);
 }

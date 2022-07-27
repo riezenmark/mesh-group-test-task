@@ -16,6 +16,7 @@ public class Profile {
 
     @Column(nullable = false)
     private Double cash;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

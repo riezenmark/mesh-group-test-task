@@ -1,6 +1,7 @@
 package ru.meshgroup.testtask.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -8,26 +9,25 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.meshgroup.testtask.domain.Phone;
 import ru.meshgroup.testtask.repository.PhoneRepository;
 import ru.meshgroup.testtask.service.iface.PhoneService;
-import ru.meshgroup.testtask.service.tool.StandardMapper;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PhoneServiceImpl implements PhoneService {
     private final PhoneRepository phoneRepository;
-    private final StandardMapper<Phone> mapper;
 
     @Override
     @Transactional
-    public Phone create(Phone phone) {
-        return phoneRepository.save(phone);
+    public Optional<Phone> create(Phone newPhone) {
+        Phone savedPhone = phoneRepository.save(newPhone);
+        return Optional.of(savedPhone);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Phone getById(Long id) {
-        return phoneRepository
-                .findById(id)
-                .orElse(null);
+    public Optional<Phone> getById(Long id) {
+        return phoneRepository.findById(id);
     }
 
     @Override
@@ -38,19 +38,16 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     @Transactional
-    public Phone update(Long id, Phone phone) {
-        return phoneRepository
-                .findById(id)
-                .map(profileFromRepo -> mapper.copyFieldsIgnoringId(phone, profileFromRepo))
-                .map(phoneRepository::save)
-                .orElse(null);
+    public Optional<Phone> update(Long id, Phone newPhone) {
+        Optional<Phone> oldPhone = phoneRepository.findById(id);
+        oldPhone.ifPresent(updatedPhone -> BeanUtils.copyProperties(newPhone, updatedPhone, "id"));
+        return oldPhone.map(phoneRepository::save);
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        phoneRepository
-                .findById(id)
+        phoneRepository.findById(id)
                 .ifPresent(phoneRepository::delete);
     }
 }

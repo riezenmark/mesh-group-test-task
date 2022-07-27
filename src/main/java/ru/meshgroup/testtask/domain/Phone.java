@@ -16,6 +16,7 @@ public class Phone {
 
     @Column(unique = true)
     private String value;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

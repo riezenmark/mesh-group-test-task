@@ -16,8 +16,10 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
-    private int age;
+    private Integer age;
+
     @Column(nullable = false, unique = true)
     private String email;
 }

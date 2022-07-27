@@ -4,14 +4,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.meshgroup.testtask.domain.Profile;
 
-public interface ProfileService {
-    Profile create(Profile user);
+import java.util.Optional;
 
-    Profile getById(Long id);
+public interface ProfileService {
+    Optional<Profile> create(Profile newProfile);
+
+    Optional<Profile> getById(Long id);
 
     Page<Profile> getPage(Pageable pageable);
 
-    Profile update(Long id, Profile profile);
+    Optional<Profile> update(Long id, Profile newProfile);
 
     void deleteById(Long id);
 }
