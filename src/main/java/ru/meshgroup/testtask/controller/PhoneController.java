@@ -7,15 +7,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.meshgroup.testtask.mapper.PhoneMapper;
 import ru.meshgroup.testtask.model.PhoneModel;
 import ru.meshgroup.testtask.model.view.PhoneView;
-import ru.meshgroup.testtask.service.iface.PhoneService;
+import ru.meshgroup.testtask.service.PhoneService;
+import ru.meshgroup.testtask.validation.annotation.AllowedSortProperties;
 
 import javax.validation.Valid;
 import java.util.Optional;
 
+@Validated
 @RestController
 @RequestMapping("/api/phones")
 @RequiredArgsConstructor
@@ -24,8 +27,7 @@ public class PhoneController {
     private final PhoneMapper phoneMapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(PhoneView.Response.class)
-    public Page<PhoneModel> list(@PageableDefault Pageable pageable) {
+    public Page<PhoneModel> list(@PageableDefault @AllowedSortProperties({"id", "value"}) Pageable pageable) {
         return phoneService.getPage(pageable)
                 .map(phoneMapper::mapPhoneToRestModel);
     }

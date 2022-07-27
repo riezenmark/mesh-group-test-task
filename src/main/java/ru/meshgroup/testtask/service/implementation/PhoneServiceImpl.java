@@ -1,4 +1,4 @@
-package ru.meshgroup.testtask.service;
+package ru.meshgroup.testtask.service.implementation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.meshgroup.testtask.domain.Phone;
 import ru.meshgroup.testtask.repository.PhoneRepository;
-import ru.meshgroup.testtask.service.iface.PhoneService;
+import ru.meshgroup.testtask.service.PhoneService;
 
 import java.util.Optional;
 

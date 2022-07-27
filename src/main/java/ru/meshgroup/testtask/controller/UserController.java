@@ -7,15 +7,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.meshgroup.testtask.mapper.UserMapper;
 import ru.meshgroup.testtask.model.UserModel;
 import ru.meshgroup.testtask.model.view.UserView;
-import ru.meshgroup.testtask.service.iface.UserService;
-import ru.meshgroup.testtask.mapper.UserMapper;
+import ru.meshgroup.testtask.service.UserService;
+import ru.meshgroup.testtask.validation.annotation.AllowedSortProperties;
 
 import javax.validation.Valid;
 import java.util.Optional;
 
+@Validated
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -24,8 +27,7 @@ public class UserController {
     private final UserMapper userMapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(UserView.Response.class)
-    public Page<UserModel> list(@PageableDefault Pageable pageable) {
+    public Page<UserModel> list(@PageableDefault @AllowedSortProperties({"id", "name", "age", "email"}) Pageable pageable) {
         return userService.getPage(pageable)
                 .map(userMapper::mapUserToRestModel);
     }

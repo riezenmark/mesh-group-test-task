@@ -7,10 +7,7 @@ import ru.meshgroup.testtask.model.view.PhoneView;
 import ru.meshgroup.testtask.model.view.ProfileView;
 import ru.meshgroup.testtask.model.view.UserView;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
@@ -27,6 +24,7 @@ public class UserModel {
     private String name;
 
     @JsonView({UserView.Request.class, UserView.Response.class})
+    @NotNull(message = "Please, specify an age.")
     @Min(value = 1, message = "Please, specify a correct age.")
     @Max(value = 255, message = "Please, specify a correct age.")
     private Integer age;

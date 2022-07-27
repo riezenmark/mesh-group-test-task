@@ -1,4 +1,4 @@
-package ru.meshgroup.testtask.service.iface;
+package ru.meshgroup.testtask.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

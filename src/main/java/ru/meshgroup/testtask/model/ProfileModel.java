@@ -18,5 +18,5 @@ public class ProfileModel {
     private Double cash;
 
     @JsonView({ProfileView.Request.class, ProfileView.Response.class})
-    private UserModel userModel;
+    private UserModel user;
 }

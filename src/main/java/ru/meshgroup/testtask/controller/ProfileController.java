@@ -7,15 +7,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.meshgroup.testtask.mapper.ProfileMapper;
 import ru.meshgroup.testtask.model.ProfileModel;
 import ru.meshgroup.testtask.model.view.ProfileView;
-import ru.meshgroup.testtask.service.iface.ProfileService;
+import ru.meshgroup.testtask.service.ProfileService;
+import ru.meshgroup.testtask.validation.annotation.AllowedSortProperties;
 
 import javax.validation.Valid;
 import java.util.Optional;
 
+@Validated
 @RestController
 @RequestMapping("/api/profiles")
 @RequiredArgsConstructor
@@ -24,8 +27,7 @@ public class ProfileController {
     private final ProfileMapper profileMapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @JsonView(ProfileView.Response.class)
-    public Page<ProfileModel> list(@PageableDefault Pageable pageable) {
+    public Page<ProfileModel> list(@PageableDefault @AllowedSortProperties({"id", "cash"}) Pageable pageable) {
         return profileService.getPage(pageable)
                 .map(profileMapper::mapProfileToRestModel);
     }
