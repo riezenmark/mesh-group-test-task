@@ -20,8 +20,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Optional<User> create(User newUser) {
-        User savedUser = userRepository.save(newUser);
-        return Optional.of(savedUser);
+        return Optional.of(newUser)
+                .filter(user -> !userRepository.existsByEmail(user.getEmail()))
+                .map(userRepository::save);
     }
 
     @Override

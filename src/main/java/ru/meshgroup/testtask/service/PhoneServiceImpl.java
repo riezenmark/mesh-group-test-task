@@ -20,8 +20,8 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     @Transactional
     public Optional<Phone> create(Phone newPhone) {
-        Phone savedPhone = phoneRepository.save(newPhone);
-        return Optional.of(savedPhone);
+        return Optional.of(newPhone)
+                .map(phoneRepository::save);
     }
 
     @Override

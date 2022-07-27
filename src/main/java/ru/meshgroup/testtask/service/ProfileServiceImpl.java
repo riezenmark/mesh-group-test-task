@@ -20,8 +20,8 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     @Transactional
     public Optional<Profile> create(Profile newProfile) {
-        Profile savedProfile = profileRepository.save(newProfile);
-        return Optional.of(savedProfile);
+        return Optional.of(newProfile)
+                .map(profileRepository::save);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Phone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 31)
     private String value;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

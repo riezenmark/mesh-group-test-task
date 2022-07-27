@@ -33,5 +33,6 @@ public class UserModel {
 
     @JsonView({UserView.Request.class, UserView.Response.class})
     @Email(message = "Please provide a valid email address.")
+    @NotBlank(message = "Please, provide an email.")
     private String email;
 }
