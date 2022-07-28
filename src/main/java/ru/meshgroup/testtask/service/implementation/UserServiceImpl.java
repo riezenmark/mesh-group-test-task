@@ -10,6 +10,7 @@ import ru.meshgroup.testtask.domain.User;
 import ru.meshgroup.testtask.repository.UserRepository;
 import ru.meshgroup.testtask.service.UserService;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -40,7 +41,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Optional<User> update(Long id, User newUser) {
-        Optional<User> oldUser = userRepository.findById(id);
+        Optional<User> oldUser = userRepository.findById(id)
+                .filter(user -> !userRepository.existsByEmailAndIdNot(newUser.getEmail(), id));
         oldUser.ifPresent(updatedUser -> BeanUtils.copyProperties(newUser, updatedUser, "id"));
         return oldUser.map(userRepository::save);
     }
